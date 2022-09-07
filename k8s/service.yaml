@@ -1,0 +1,19 @@
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: students
+  namespace: demo
+  labels:
+    app: students
+    service: students
+spec:
+  type: ClusterIP
+  selector:
+    app: students
+  ports:
+    - name: http
+      protocol: TCP
+      port: 5000
+      targetPort: 8089
+---

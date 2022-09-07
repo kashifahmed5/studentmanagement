@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app.kubernetes.io/name: springboot
+    app.kubernetes.io/instance: springboot
+    app.kubernetes.io/version: '1.0.0'
+    app.kubernetes.io/managed-by: springboot
+  name: springboot
+  namespace: demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: springboot
+  template:
+    metadata:
+      labels:
+        app: springboot
+    spec:
+      containers:
+        - image: 737971166371.dkr.ecr.us-east-1.amazonaws.com/studentmanagment:latest
+          imagePullPolicy: Always
+          name: studentmanagment
+          ports:
+            - containerPort: 8080

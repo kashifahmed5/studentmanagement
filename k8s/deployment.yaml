@@ -1,0 +1,35 @@
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: students
+  namespace: demo
+  labels:
+    app: students
+    version: v1
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: students
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: students
+        version: v1
+    spec:
+      containers:
+        - name: studentmanagment
+          image: 737971166371.dkr.ecr.us-east-1.amazonaws.com/studentmanagment:${IMAGE_TAG}
+          ports:
+            - name: application
+              containerPort: 8080
+#           resources:
+#             requests:
+#               memory: "128Mi"
+#               cpu: "10m"
+#             limits:
+#               memory: "1280Mi"
+#               cpu: "10m"
+# ---

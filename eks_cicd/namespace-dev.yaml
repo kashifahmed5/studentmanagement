@@ -1,0 +1,7 @@
+#creating namespaces
+kind: Namespace  
+apiVersion: v1  
+metadata:  
+ name: cluster-2-dev  
+ labels:  
+   name: cluster-2-dev  

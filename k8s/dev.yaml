@@ -1,0 +1,69 @@
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: books
+  namespace: dev
+  labels:
+    app: books
+    version: v1
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: books
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: books
+        version: v1
+    spec:
+      containers:
+        - name: springbooto
+          image: 7737971166371.dkr.ecr.us-east-1.amazonaws.com/springboot:latest
+          ports:
+            - containerPort: 8089
+          resources:
+            requests:
+              memory: "10Mi"
+              cpu: "10m"
+            limits:
+              memory: "100Mi"
+              cpu: "100m"
+---
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: books
+  namespace: dev
+  labels:
+    app: books
+    service: books
+spec:
+  selector:
+    app: books
+  type: LoadBalancer
+  ports:
+   -  protocol: TCP
+      port: 8089
+      targetPort: 8089
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: minimal-ingress
+  namespace: dev
+spec:  
+  rules:
+  - http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: books
+            port:
+              number: 8089
+---

@@ -1,0 +1,39 @@
+---
+apiVersion: networking.istio.io/v1beta1
+kind: Gateway
+metadata:
+  name: service-gateway
+  namespace: demo
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+    - hosts:
+        - "*"
+
+      port:
+        number: 80
+        name: http
+        protocol: HTTP
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: gateway-service
+  namespace: demo
+spec:
+  hosts:
+  - ${DOMAIN_NAME}
+  gateways:
+  - service-gateway
+  http:
+  - match:
+      - uri:
+          prefix: "/students"
+ 
+    route:
+      - destination:
+          host: students
+          port:
+            number: 5000
+---

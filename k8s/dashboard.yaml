@@ -1,0 +1,74 @@
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: dashboard
+  namespace: demo
+  labels:
+    app: dashboard
+    service: dashboard
+spec:
+  type: ClusterIP
+  selector:
+    app: dashboard
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 80
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: dashboard
+  namespace: demo
+  labels:
+    app: dashboard
+    version: v1
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: dashboard
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: dashboard
+        version: v1
+    spec:
+      containers:
+        - name: dashboard
+          image: ${REGISTRY}:${IMAGE_TAG}
+          ports:
+            - name: application
+              containerPort: 80
+          resources:
+            requests:
+              memory: "10Mi"
+              cpu: "10m"
+            limits:
+              memory: "100Mi"
+              cpu: "100m"
+---
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: dashboard-service
+  namespace: demo
+spec:
+  hosts:
+  - "dashboard.example.com"
+  gateways:
+  - service-gateway
+  http:
+  - match:
+      - uri:
+          prefix: "/"
+ 
+    route:
+      - destination:
+          host: dashboard
+          port:
+            number: 80

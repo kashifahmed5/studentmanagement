@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: net.javaguides.sms.StudentManagementSystemApplicationTests
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 14.371 s - in net.javaguides.sms.StudentManagementSystemApplicationTests
