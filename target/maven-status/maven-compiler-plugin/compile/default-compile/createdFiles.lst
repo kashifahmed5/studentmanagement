@@ -1,0 +1,6 @@
+net\javaguides\sms\controller\StudentController.class
+net\javaguides\sms\StudentManagementSystemApplication.class
+net\javaguides\sms\repository\StudentRepository.class
+net\javaguides\sms\service\StudentService.class
+net\javaguides\sms\entity\Student.class
+net\javaguides\sms\service\impl\StudentServiceImpl.class
