@@ -63,6 +63,7 @@
      steps{  
          script {
             sh"aws --region us-east-1 eks get-token --cluster-name test-cluster"
+            sh"kubectl create namespace demo"
             sh"kubectl apply -f eks_cicd/deployment.yaml -n demo"
             sh"kubectl rollout restart -f  eks_cicd/deployment.yaml -n demo "
             
