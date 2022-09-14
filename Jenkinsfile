@@ -5,7 +5,7 @@
     environment {
         AWS_ACCOUNT_ID="737971166371"
         AWS_DEFAULT_REGION="us-east-1" 
-        IMAGE_REPO_NAME="springboot"
+        IMAGE_REPO_NAME="studentmanagment"
         IMAGE_TAG="latest"
         REPOSITORY_URI = "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${IMAGE_REPO_NAME}"
     }
@@ -23,7 +23,7 @@
         
          stage('Cloning Git') {
             steps {
-                checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[credentialsId: 'kashif-cred', url: 'https://github.com/kashifahmed5/springboot.git']]])    
+                checkout([$class: 'GitSCM', branches: [[name: '**']], extensions: [], userRemoteConfigs: [[credentialsId: 'kashif-cred', url: 'https://github.com/kashifahmed5/studentmanagement.git']]])    
             }
         }
         
@@ -59,7 +59,7 @@
         }
     }
        
-    stage('deployment') {
+    stage('Deployment') {
      steps{  
          script {
             sh"aws --region us-east-1 eks get-token --cluster-name test-cluster"
@@ -70,7 +70,7 @@
          }
       }
     }
-       stage('service') {
+       stage('Service') {
      steps{  
          script {
             
@@ -79,7 +79,7 @@
          }
       }
     }
-       stage('ingress') {
+       stage('Ingress') {
      steps{  
          script {
             
