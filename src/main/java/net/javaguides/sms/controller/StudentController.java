@@ -45,13 +45,13 @@ public class StudentController {
 		
 	}
 // 	students change if happenanything
-	@PostMapping("/student")
+	@PostMapping("/students")
 	public String saveStudent(@ModelAttribute("student") Student student) {
 		studentService.saveStudent(student);
 		return "redirect:/students";
 	}
 	
-	@PostMapping("/students")
+	@PostMapping("/student")
 	public long saveStudents(@RequestBody Student student) {
 		studentService.saveStudent(student);
 		return student.getId();
