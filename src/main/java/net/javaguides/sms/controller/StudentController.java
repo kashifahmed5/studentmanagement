@@ -44,14 +44,14 @@ public class StudentController {
 		return "create_student";
 		
 	}
-	
-	@PostMapping("/students")
+// 	students change if happenanything
+	@PostMapping("/student")
 	public String saveStudent(@ModelAttribute("student") Student student) {
 		studentService.saveStudent(student);
 		return "redirect:/students";
 	}
 	
-	@PostMapping("/student")
+	@PostMapping("/students")
 	public long saveStudents(@RequestBody Student student) {
 		studentService.saveStudent(student);
 		return student.getId();
