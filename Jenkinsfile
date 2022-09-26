@@ -90,18 +90,18 @@ pipeline {
                                 secretKeyVariable: 'AWS_SECRET_ACCESS_KEY',
                                 credentialsId: 'AWS-Access',
                             ]]) {
-                                dir("eks_cicd"){
+                                dir("k8s"){
                                     sh("""
                                     
                                     export BOOK_REGISTRY=$BOOK_REGISTRY
                                     
                                     export IMAGE_TAG=${env.BUILD_NUMBER}
-                                    kubectl create namespace demo
-                                    kubectl apply -f deployment.yaml
+                                    
+                                    kubectl apply -f namespace.yaml
+                                 
+                                    envsubst < ./deployment.yaml | kubectl apply -f -
                                     envsubst < ./service.yaml | kubectl apply -f -
                                     envsubst < ./ingress.yaml | kubectl apply -f -
-                                    sleep 60
-                                    kubectl get svc -n demo
                                     """)
                                 }
                             }
