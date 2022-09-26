@@ -1,14 +1,11 @@
-apiVersion: v1
 kind: Service
+apiVersion: v1
 metadata:
-  labels:
-    app.kubernetes.io/name: studentmanagment
-    app.kubernetes.io/instance: studentmanagment-instance
-    app.kubernetes.io/version: "1.0.0"
-    app.kubernetes.io/component: backend
-    app.kubernetes.io/managed-by: studentmanagment
   name: studentmanagment
   namespace: demo
+  labels:
+    app: studentmanagment
+    service: studentmanagment
 spec:
   selector:
     app: studentmanagment
