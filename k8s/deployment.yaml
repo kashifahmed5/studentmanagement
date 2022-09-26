@@ -1,23 +1,22 @@
----
-kind: Deployment
 apiVersion: apps/v1
+kind: Deployment
 metadata:
-  name: students
-  namespace: demo
   labels:
-    app: students
-    version: v1
+    app.kubernetes.io/name: springboot
+    app.kubernetes.io/instance: springboot
+    app.kubernetes.io/version: '1.0.0'
+    app.kubernetes.io/managed-by: springboot
+  name: springboot
+  namespace: demo
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
-      app: students
-      version: v1
+      app: springboot
   template:
     metadata:
       labels:
-        app: students
-        version: v1
+        app: springboot
     spec:
       containers:
         - name: studentmanagment
