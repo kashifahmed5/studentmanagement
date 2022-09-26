@@ -8,12 +8,10 @@ metadata:
     app: students
     service: students
 spec:
-  type: ClusterIP
   selector:
-    app: students
+    app: springboot
+  type: LoadBalancer
   ports:
-    - name: http
-      protocol: TCP
-      port: 5000
-      targetPort: 8089
----
+   -  protocol: TCP
+      port: 80
+      targetPort: 8080
