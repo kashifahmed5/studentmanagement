@@ -19,7 +19,7 @@ spec:
         app: springboot
     spec:
       containers:
-        - image: 737971166371.dkr.ecr.us-east-1.amazonaws.com/studentmanagment:latest
+        - image: 737971166371.dkr.ecr.us-east-1.amazonaws.com/studentmanagment:${IMAGE_TAG}
           imagePullPolicy: Always
           name: studentmanagment
           ports:
