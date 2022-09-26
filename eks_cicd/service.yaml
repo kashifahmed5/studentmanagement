@@ -1,11 +1,12 @@
+---
 kind: Service
 apiVersion: v1
 metadata:
-  name: studentmanagment
+  name: students
   namespace: demo
   labels:
-    app: studentmanagment
-    service: studentmanagment
+    app: students
+    service: students
 spec:
   selector:
     app: studentmanagment
