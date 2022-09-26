@@ -1,23 +1,21 @@
-        
-        
 kind: Deployment
 apiVersion: apps/v1
 metadata:
-  name: studentmanagment
+  name: students
   namespace: demo
   labels:
-    app: studentmanagment
+    app: students
     version: v1
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: studentmanagment
+      app: students
       version: v1
   template:
     metadata:
       labels:
-        app: studentmanagment
+        app: students
         version: v1
     spec:
       containers:
