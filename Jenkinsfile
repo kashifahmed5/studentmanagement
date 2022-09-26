@@ -1,10 +1,9 @@
-
 pipeline {
     agent any
 
     environment {
-        dockerImage_students = ""
-        STUDENT_REGISTRY = "737971166371.dkr.ecr.us-east-1.amazonaws.com/studentmanagement"
+        dockerImage_books = ""
+        BOOK_REGISTRY = "737971166371.dkr.ecr.us-east-1.amazonaws.com/studentmanagement"
         PROFILE = 'deploy'
         AWS_REGION = 'us-east-1'
         REGISTRY_CREDENTIALS = 'AWS-Access'
@@ -17,19 +16,10 @@ pipeline {
         disableConcurrentBuilds()
     }
 
-    parameters {
-        string (name: 'LB_DOMAIN_NAME', defaultValue: 'a9fdea6df74814f8790f5fcb5f62f00a-434091433.us-east-1.elb.amazonaws.com', description: "Domain Name for the Ingress LoadBalancer.")
-    }
+    
 
     stages {
-       stage('Set Environment Variable'){
-            steps {
-                script {
-                    env.LB_DOMAIN_NAME = "${params.LB_DOMAIN_NAME}"
-
-                }
-            }
-        }
+      
         stage('Checkout & Environment Prep'){
             steps{
                 script {
@@ -68,7 +58,7 @@ pipeline {
                     steps {
                         script {
                             
-                            dockerImage_students =  docker.build("${STUDENT_REGISTRY}" + ":${env.BUILD_NUMBER}")
+                            dockerImage_books =  docker.build("${BOOK_REGISTRY}" + ":${env.BUILD_NUMBER}")
                             
                         }
                     }
@@ -80,8 +70,8 @@ pipeline {
         stage("Push Book Application"){
                     steps {
                         script {
-                            docker.withRegistry("https://" + "${STUDENTS_REGISTRY}", "ecr:us-east-1:" + "${REGISTRY_CREDENTIALS}") {
-                                dockerImage_students.push()
+                            docker.withRegistry("https://" + "${BOOK_REGISTRY}", "ecr:us-east-1:" + "${REGISTRY_CREDENTIALS}") {
+                                dockerImage_books.push()
                             }
                         }
                     }
@@ -103,15 +93,13 @@ pipeline {
                                 dir("eks_cicd"){
                                     sh("""
                                     
-                                    export STUDENT_REGISTRY=$STUDENT_REGISTRY
+                                    export BOOK_REGISTRY=$BOOK_REGISTRY
                                     
                                     export IMAGE_TAG=${env.BUILD_NUMBER}
-                                    export DOMAIN_NAME=$LB_DOMAIN_NAME
                                     kubectl create namespace demo
                                     kubectl apply -f deployment.yaml
                                     envsubst < ./service.yaml | kubectl apply -f -
                                     envsubst < ./ingress.yaml | kubectl apply -f -
-                                    
                                     """)
                                 }
                             }
