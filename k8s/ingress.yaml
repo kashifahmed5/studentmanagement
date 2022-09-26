@@ -13,6 +13,6 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: springboot
+            name: students
             port:
               number: 8080
