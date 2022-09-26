@@ -85,6 +85,7 @@
          script {
             
             sh"kubectl apply -f  eks_cicd/ingress.yaml  -o yaml -n demo"
+            sh 'sleep 60'
             sh"kubectl get svc -n demo"
               
          }
