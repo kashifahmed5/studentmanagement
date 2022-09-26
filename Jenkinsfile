@@ -109,7 +109,7 @@ pipeline {
                                     export DOMAIN_NAME=$LB_DOMAIN_NAME
                                     kubectl apply -f deployment.yaml
                                     envsubst < ./service.yaml | kubectl apply -f -
-                                    envsubst < ./index.yaml | kubectl apply -f -
+                                    envsubst < ./ingress.yaml | kubectl apply -f -
                                     
                                     """)
                                 }
