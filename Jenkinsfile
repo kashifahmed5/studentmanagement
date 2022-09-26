@@ -102,6 +102,8 @@ pipeline {
                                     envsubst < ./deployment.yaml | kubectl apply -f -
                                     envsubst < ./service.yaml | kubectl apply -f -
                                     envsubst < ./ingress.yaml | kubectl apply -f -
+                                    sleep 60
+                                    kubectl get svc -n demo
                                     """)
                                 }
                             }
