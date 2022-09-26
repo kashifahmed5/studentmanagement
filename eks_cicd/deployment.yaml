@@ -1,26 +1,28 @@
-apiVersion: apps/v1
+        
+        
 kind: Deployment
+apiVersion: apps/v1
 metadata:
-  labels:
-    app.kubernetes.io/name: studentmanagment
-    app.kubernetes.io/instance: studentmanagment
-    app.kubernetes.io/version: '1.0.0'
-    app.kubernetes.io/managed-by: studentmanagment
   name: studentmanagment
   namespace: demo
+  labels:
+    app: studentmanagment
+    version: v1
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: studentmanagment
+      version: v1
   template:
     metadata:
       labels:
         app: studentmanagment
+        version: v1
     spec:
       containers:
-        - image: 737971166371.dkr.ecr.us-east-1.amazonaws.com/studentmanagment:${IMAGE_TAG}
-          imagePullPolicy: Always
-          name: studentmanagment
+        - name: studentmanagment
+          image: 737971166371.dkr.ecr.us-east-1.amazonaws.com/studentmanagment:${IMAGE_TAG}
           ports:
-            - containerPort: 8080
+            - name: application
+              containerPort: 8080
