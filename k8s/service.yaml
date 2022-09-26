@@ -1,15 +1,17 @@
----
-kind: Service
 apiVersion: v1
+kind: Service
 metadata:
-  name: students
-  namespace: demo
   labels:
-    app: students
-    service: students
+    app.kubernetes.io/name: springboot
+    app.kubernetes.io/instance: springboot-instance
+    app.kubernetes.io/version: "1.0.0"
+    app.kubernetes.io/component: backend
+    app.kubernetes.io/managed-by: springboot
+  name: springboot
+  namespace: demo
 spec:
   selector:
-    app: studentmanagement
+    app: springboot
   type: LoadBalancer
   ports:
    -  protocol: TCP
