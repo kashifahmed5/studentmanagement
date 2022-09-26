@@ -9,7 +9,7 @@ metadata:
     service: students
 spec:
   selector:
-    app: springboot
+    app: studentmanagement
   type: LoadBalancer
   ports:
    -  protocol: TCP
