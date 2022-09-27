@@ -16,7 +16,19 @@ pipeline {
         disableConcurrentBuilds()
     }
 
-   
+    parameters {
+        string (name: 'cluster-name', defaultValue: 'test-cluster', description: "Name of EKS Cluster.")
+    }
+
+    stages {
+       stage('Set Environment Variable'){
+            steps {
+                script {
+                    env.cluster-name = "${params.cluster-name}"
+
+                }
+            }
+        }
 
     stages {
        
@@ -96,6 +108,7 @@ pipeline {
                                     export BOOK_REGISTRY=$BOOK_REGISTRY
                                     
                                     export IMAGE_TAG=${env.BUILD_NUMBER}
+                                    aws eks update-kubeconfig --name ${env.cluster-name}
                                     kubectl apply -f namespace.yaml
                                     envsubst < ./deployment.yaml | kubectl apply -f -
                                     envsubst < ./service.yaml | kubectl apply -f -
