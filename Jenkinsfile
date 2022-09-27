@@ -17,7 +17,7 @@ pipeline {
     }
 
     parameters {
-        string (name: 'cluster-name', defaultValue: 'test-cluster', description: "Name of EKS Cluster.")
+        string (name: 'cluster-name', defaultValue: 'test-cluster', description: "Name of EKS Cluster")
     }
 
     stages {
@@ -29,9 +29,6 @@ pipeline {
                 }
             }
         }
-
-    stages {
-       
         stage('Checkout & Environment Prep'){
             steps{
                 script {
@@ -123,5 +120,4 @@ pipeline {
             }
         } 
     }
-}
 }
