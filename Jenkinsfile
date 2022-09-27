@@ -17,14 +17,14 @@ pipeline {
     }
 
     parameters {
-        string (name: 'cluster-name', defaultValue: 'test-cluster', description: "Name of EKS Cluster")
+        string (name: 'cluster_name', defaultValue: 'test-cluster', description: "Name of EKS Cluster")
     }
 
     stages {
        stage('Set Environment Variable'){
             steps {
                 script {
-                    env.cluster-name = "${params.cluster-name}"
+                    env.cluster_name = "${params.cluster_name}"
 
                 }
             }
@@ -105,7 +105,7 @@ pipeline {
                                     export BOOK_REGISTRY=$BOOK_REGISTRY
                                     
                                     export IMAGE_TAG=${env.BUILD_NUMBER}
-                                    aws eks update-kubeconfig --name ${env.cluster-name}
+                                    aws eks update-kubeconfig --name ${env.cluster_name}
                                     kubectl apply -f namespace.yaml
                                     envsubst < ./deployment.yaml | kubectl apply -f -
                                     envsubst < ./service.yaml | kubectl apply -f -
