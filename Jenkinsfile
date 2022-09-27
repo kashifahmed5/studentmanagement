@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         dockerImage_books = ""
-        BOOK_REGISTRY = "737971166371.dkr.ecr.us-east-1.amazonaws.com/studentmanagement"
+        BOOK_REGISTRY = "737971166371.dkr.ecr.us-east-1.amazonaws.com/studentmanagment"
         PROFILE = 'deploy'
         AWS_REGION = 'us-east-1'
         REGISTRY_CREDENTIALS = 'AWS-Access'
