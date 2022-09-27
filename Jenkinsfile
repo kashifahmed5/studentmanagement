@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         dockerImage_books = ""
-        BOOK_REGISTRY = "737971166371.dkr.ecr.us-east-1.amazonaws.com/studentmanagment"
+        BOOK_REGISTRY = "737971166371.dkr.ecr.us-east-1.amazonaws.com/studentmanagement"
         PROFILE = 'deploy'
         AWS_REGION = 'us-east-1'
         REGISTRY_CREDENTIALS = 'AWS-Access'
@@ -16,10 +16,10 @@ pipeline {
         disableConcurrentBuilds()
     }
 
-    
+   
 
     stages {
-      
+       
         stage('Checkout & Environment Prep'){
             steps{
                 script {
@@ -96,9 +96,7 @@ pipeline {
                                     export BOOK_REGISTRY=$BOOK_REGISTRY
                                     
                                     export IMAGE_TAG=${env.BUILD_NUMBER}
-                                    
                                     kubectl apply -f namespace.yaml
-                                 
                                     envsubst < ./deployment.yaml | kubectl apply -f -
                                     envsubst < ./service.yaml | kubectl apply -f -
                                     envsubst < ./ingress.yaml | kubectl apply -f -
